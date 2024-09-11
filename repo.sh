@@ -23,7 +23,7 @@ while true; do
   if ping -c 1 $host &> /dev/null; then
     # If the ping is successful, print a success message and exit
     echo "Ping successful!"
-    exit 0
+    break
   else
     # If the ping fails, print the progress bar and update the character
     echo -en "\r${arr[$i]} Pinging $host... "
@@ -39,6 +39,8 @@ echo "
 "
 read -p "choose debian: " repo
 
+sleep 1
+
 debian12="
 deb http://deb.debian.org/debian bookworm main contrib non-free
 deb http://security.debian.org/debian-security bookworm-security main contrib non-free
@@ -53,6 +55,7 @@ deb http://security.debian.org/debian-security buster-security main contrib non-
 "
 
 echo "backup files.."
+sleep 1
 
 cp /etc/apt/sources.list /etc/apt/sources.list.bak
 
