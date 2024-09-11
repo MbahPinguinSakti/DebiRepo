@@ -6,6 +6,32 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+
+# Define the characters for the progress bar
+arr=('-' '\' '|' '/')
+
+# Define the host to ping
+host="google.com"
+
+# Initialize the progress bar character index
+i=0
+
+echo "checking hosts connection.."
+
+while true; do
+  # Ping the host and check the result
+  if ping -c 1 $host &> /dev/null; then
+    # If the ping is successful, print a success message and exit
+    echo "Ping successful!"
+    exit 0
+  else
+    # If the ping fails, print the progress bar and update the character
+    echo -en "\r${arr[$i]} Pinging $host... "
+    i=$(( (i+1) % ${#arr[@]} ))  # Cycle through the characters
+    sleep 0.5
+  fi
+done
+
 echo "  
     1) Debian 10 (Buster)
     2) Debian 11 (Bullseye)
